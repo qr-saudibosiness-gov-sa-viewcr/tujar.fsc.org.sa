@@ -1,0 +1,6 @@
+{
+  "apiUrl": "https://tujar.fsc.org.sa/be",
+  "captchaSiteKey": "6Le31K4nAAAAAMjUjlZ3JSrvp-oflhb0qp9shJkO",
+  "enableEncryptBodyReq": true,
+  "enableConsoleLog": false
+}
