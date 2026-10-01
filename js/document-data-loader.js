@@ -75,6 +75,28 @@
     };
   }
 
+  function render404() {
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
+    document.title = 'Error 404';
+
+    var style = document.getElementById('document-404-style');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'document-404-style';
+      style.textContent = [
+        'html,body{width:100%!important;height:100%!important;margin:0!important;}',
+        'body{display:flex!important;align-items:center!important;justify-content:center!important;background:#fff!important;color:#111!important;font-family:Arial,Helvetica,sans-serif!important;text-align:center!important;overflow:hidden!important;}',
+        '#document-404-page{display:block!important;transform:translateY(2vh)!important;}',
+        '#document-404-page h1{margin:0 0 8px!important;font-size:32px!important;line-height:1.15!important;font-weight:700!important;color:#111!important;}',
+        '#document-404-page p{margin:0!important;font-size:14px!important;line-height:1.4!important;font-weight:400!important;color:#444!important;}'
+      ].join('');
+      document.head.appendChild(style);
+    }
+
+    document.body.innerHTML = '<main id="document-404-page" role="main" aria-label="Page not found"><h1>Error 404</h1><p>Page not found.</p></main>';
+  }
+
   function wireDownload(data, recordId) {
     var btn = findDownloadButton();
     if (!btn) return;
@@ -140,9 +162,8 @@
       await loadRecord(params.documentNumber, params.subscriptionNumber);
     } catch (err) {
       console.error('[document-data-loader]', err);
-      clearFields();
-      disableDownload();
-      document.documentElement.setAttribute('data-document-error', '1');
+      render404();
+      return;
     } finally {
       normalizeVisibleUrl();
     }
